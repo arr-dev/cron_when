@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift('../lib/')
+
+require 'cron_when'
+
+cw = CronWhen.new(ARGV.join)
+
+cw.schedule
