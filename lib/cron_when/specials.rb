@@ -31,7 +31,7 @@ module CronWhen
     alias_method :midnight, :daily
 
     def hourly
-      Time.now.advance(:hours => 1)
+      Time.now.advance(:hours => 1).change(:min => 0, :sec => 0, :usec => 0)
     end
   end
 end
