@@ -30,13 +30,8 @@ OptionParser.new do |opts|
     puts CronWhen::Version
     exit
   end
-
 end.parse!
-
-p options
-p ARGV
-
 
 cw = CronWhen::Parser.new(ARGV.join, options)
 
-cw.schedule
+puts cw.schedule

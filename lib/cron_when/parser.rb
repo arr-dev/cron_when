@@ -7,23 +7,25 @@ module CronWhen
     # TODO lib parser
     # TODO tests
     def initialize(crontab, options)
-      @source = crontab
       @options = options
-      parts = crontab.split(' ')
-      @minutes = parts[MINUTE]
-      @hours = parts[HOUR]
-      @days_of_month = parts[DAY_OF_MONTH]
-      @months = parts[MONTH]
-      @days_of_week = parts[DAY_OF_WEEK]
+      parse(crontab)
     end
 
     def schedule
-      puts @source.inspect
-      puts @minutes + "\n"
-      puts @hours + "\n"
-      puts @days_of_month + "\n"
-      puts @months + "\n"
-      puts @days_of_week + "\n"
+      @schedule
+    end
+
+    def parse(crontab)
+      if SPECIALS.include?(crontab)
+        @schedule = Specials.new(crontab).calculate
+      else
+        parts = crontab.split(' ')
+        @minutes = parts[MINUTE]
+        @hours = parts[HOUR]
+        @days_of_month = parts[DAY_OF_MONTH]
+        @months = parts[MONTH]
+        @days_of_week = parts[DAY_OF_WEEK]
+      end
     end
 
     MINUTE = 0
@@ -32,6 +34,6 @@ module CronWhen
     MONTH = 3
     DAY_OF_WEEK = 4
 
-    PREDEFINED = %w(@reboot @yearly @annually @monthly @weekly @daily @midnight @hourly)
+    SPECIALS = %w(@reboot @yearly @annually @monthly @weekly @daily @midnight @hourly)
   end
 end
