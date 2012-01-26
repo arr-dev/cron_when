@@ -2,8 +2,41 @@
 
 $LOAD_PATH.unshift('../lib/')
 
+require 'optparse'
 require 'cron_when'
+require 'cron_when/version'
 
-cw = CronWhen.new(ARGV.join)
+options = {}
+OptionParser.new do |opts|
+  #opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-n", "--next", "Get next schedule [Default]") do
+    options[:next] = true
+  end
+
+  opts.on("-p", "--previous", "Get previous schedule") do
+    options[:previous] = true
+  end
+
+  # No argument, shows at tail.  This will print an options summary.
+  # Try it and see!
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  # Another typical switch to print the version.
+  opts.on_tail("-V", "--version", "Show version") do
+    puts CronWhen::Version
+    exit
+  end
+
+end.parse!
+
+p options
+p ARGV
+
+
+cw = CronWhen::Parser.new(ARGV.join, options)
 
 cw.schedule
