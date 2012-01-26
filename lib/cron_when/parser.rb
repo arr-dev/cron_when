@@ -19,6 +19,7 @@ module CronWhen
       if SPECIALS.include?(crontab)
         @schedule = Specials.new(crontab).calculate
       else
+        raise WrongCrontabFormatException, "Wrong crontab format: #{crontab}" unless crontab.match(REGEX)
         parts = crontab.split(' ')
         @minutes = parts[MINUTE]
         @hours = parts[HOUR]
@@ -35,5 +36,9 @@ module CronWhen
     DAY_OF_WEEK = 4
 
     SPECIALS = %w(@reboot @yearly @annually @monthly @weekly @daily @midnight @hourly)
+
+    REGEX = /\A[\*\/\-0-9]+\s+[\*\/\-0-9]+\s+[\*\/\-0-9]+\s+[\*\/\-0-9a-z]+\s+[\*\/\-0-9a-z]+.*\z/
   end
+
+  class WrongCrontabFormatException < Exception; end
 end

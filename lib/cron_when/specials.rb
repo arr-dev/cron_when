@@ -9,32 +9,29 @@ module CronWhen
     end
 
     def reboot
-      "Next time you reboot it ;)"
+      "Next time you reboot ;)"
     end
 
     def yearly
-      'next year'
+      Time.now.next_year.beginning_of_year
     end
     alias_method :annually, :yearly
 
     def monthly
-      'next month'
+      Time.now.next_month.beginning_of_month
     end
 
     def weekly
-      'next week'
+      Time.now.next_week.beginning_of_week
     end
 
     def daily
-      'tommorow'
+      Time.now.tomorrow.beginning_of_day
     end
-
-    def midnight
-      'witch hour'
-    end
+    alias_method :midnight, :daily
 
     def hourly
-      
+      Time.now.advance(:hours => 1)
     end
   end
 end
