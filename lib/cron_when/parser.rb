@@ -20,12 +20,12 @@ module CronWhen
         @schedule = Specials.new(crontab).calculate
       else
         raise WrongCrontabFormatException, "Wrong crontab format: #{crontab}" unless crontab.match(REGEX)
-        parts = crontab.split(' ')
-        @minutes = parts[MINUTE]
-        @hours = parts[HOUR]
-        @days_of_month = parts[DAY_OF_MONTH]
-        @months = parts[MONTH]
-        @days_of_week = parts[DAY_OF_WEEK]
+        fields = crontab.split(' ')
+        @minutes = fields[MINUTE]
+        @hours = fields[HOUR]
+        @days_of_month = fields[DAY_OF_MONTH]
+        @months = fields[MONTH]
+        @days_of_week = fields[DAY_OF_WEEK]
       end
     end
 
