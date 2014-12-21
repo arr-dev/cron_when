@@ -1,4 +1,6 @@
-CronWhen is gem for retrieving execution time for cron job from crontab string.
+CronWhen is (a future) gem for retrieving execution time for cron job from crontab string.
+
+Never realy got to implementing it, but I should, probably.
 
 ### Installation
 
